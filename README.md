@@ -1,4 +1,4 @@
-# quizzer
+# Quizzer
 
 Sample Q&A app
 
