@@ -14,33 +14,45 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final questions = const [
+    {
+      'questionText': 'What\'s your favorite color?',
+      'answers': ['Black', 'Red', 'Green', 'White'],
+    },
+    {
+      'questionText': 'What\'s your favorite animal',
+      'answers': ['Rabbit', 'Snake', 'Hippo', 'Tiger'],
+    },
+    {
+      'questionText': 'Which is your favourite Harry Potter house?',
+      'answers': ['Gryffindor ', 'Slytherin', 'Ravenclaw', 'Hufflepuff'],
+    },
+  ];
   var _questionIndex = 0;
 
   void _answerQuestion() {
     setState(() {
-      _questionIndex += 1;
+      _questionIndex = _questionIndex + 1;
     });
-    print(_questionIndex);
   }
 
   @override
   Widget build(BuildContext context) {
-    var questions = [
-      'What\'s your favorite color?',
-      'What\'s your favorite animal'
-    ];
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: Text('Quizzer app'),
       ),
-        body: Column(
+        body: _questionIndex < questions.length ? Column(
           children: [
-            Question(questions[_questionIndex]),
-            Answer(_answerQuestion),
-            Answer(_answerQuestion),
-            Answer(_answerQuestion),
-          ],),
+            Question(
+              questions[_questionIndex]['questionText'] as String,
+            ),
+            ...(questions[_questionIndex]['answers'] as List<String>).map((answer) {
+              return Answer(_answerQuestion, answer);
+            }).toList(),
+          ],
+        ) : Center(child: Text('You finished the quiz'),),
       ),
     );
   }
