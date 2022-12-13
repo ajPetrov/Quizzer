@@ -33,7 +33,7 @@ class Result extends StatelessWidget {
                 fontWeight: FontWeight.bold
             ),
           ),
-          ElevatedButton(
+          TextButton(
             child: Text('Restart Quiz!'),
             onPressed: resetHandler,
           ),
